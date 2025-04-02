@@ -1,9 +1,9 @@
-// when the window load, fetch('https://restcountries.com/v3/all')
-//alphabetical order
-//when flag clicked = show more info about the country in a floating window(flag, capital, population, side of the driving road)
-//button to close that floating window
+// when the window loads, fetch('https://restcountries.com/v3/all')
+// alphabetical order
+// when flag clicked = show more info about the country in a floating window(flag, capital, population, side of the driving road)
+// button to close that floating window
 // <div id="countries-list"></div>
-//sort method for alphabetical order(capitals or lower case matters also)
+// sort method for alphabetical order (capitals or lower case matters also)
 
 /*
 <div id="popUp" class="popUp hidden">
@@ -48,9 +48,9 @@ function getFlags() {
 
         li.innerHTML = `<img src="${flagUrl}" class="flag-img" /> ${countryName}`;
 
-        const flagImg = li.querySelector(".flag-img");
+        const flagImg = li.querySelector(".flag-img"); //gets the first element with that class name (in this case we declared it previously)
         flagImg.addEventListener('click', () => {
-          const capitalValue = country.capital?.[0] ?? 'No Capital';
+          const capitalValue = country.capital?.[0] ?? 'No Capital'; //if country.capital exists, use its first item --> role of "?"; and then if it's null or undefined, it'll show 'No cpital' --> role of "??"
           const populationValue = country.population?.toLocaleString() ?? 'N/A';
           const driveSide = country.car?.side ?? 'N/A';
 
@@ -77,3 +77,24 @@ getFlags();
 btnclose.addEventListener('click', () => {
   popUp.classList.add('hidden');
 });
+
+
+/* 
+
+using async/await:
+
+const getCountries = async () => { //this waits for the http server
+try {
+    const response = await fetch(url) //response will be given once it fetches the api url
+    const data = await response.json() //the data will be shown once the response is converted into json()
+    data.forEach(country => {
+        countriesList.innerHTML += `<p>${country.name.commmon}</p>`
+    });
+  } catch(err) {
+    console.err(err); //we catch the potential errors
+  }
+
+}
+getCountries(); //then we call the arrow async function
+
+*/
